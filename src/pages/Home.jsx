@@ -9,7 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
  
-// ...
+import { useNavigate } from "react-router-dom";
  
 
 
@@ -18,10 +18,16 @@ export default function Home(props) {
 
   React.useEffect(() => {
     props.getCryptos();
-    props.getHistory();
+   
     
   },[])
 
+  let navigate = useNavigate();
+
+  const navigateToDetail = (id, index) => {
+    navigate(`/${id}`);
+
+  }
 
   return (
 
@@ -30,9 +36,9 @@ export default function Home(props) {
         CRYPTO TRACKER
       </Typography>
       { 
-        props.cryptos.map((crypto) => (
+        props.cryptos.map((crypto, index) => (
         <Card sx={{ my:2 }} key={crypto.id}>
-          <CardActionArea sx={{display: 'flex', justifyContent: 'start'}}>
+          <CardActionArea sx={{display: 'flex', justifyContent: 'start'}} onClick={event => { navigateToDetail(crypto.id, index) }}>
             <CardMedia
               component="img"
               image={crypto.logo_url}

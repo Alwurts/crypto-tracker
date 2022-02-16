@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline'
 
 import Home from "./pages/Home"
+import Detail from './pages/Detail';
 
 import { red } from '@mui/material/colors';
 
@@ -19,6 +20,7 @@ const theme = createTheme({
 
 function App() {
   const [cryptos, setCryptos] = React.useState([])
+
 
   function getCryptos() {
     console.log('Getting cryptos')
@@ -52,8 +54,9 @@ function App() {
         <CssBaseline />
 
           <Routes>
-            <Route path="" element={<Outlet />}>
-              <Route path="/" element={<Home cryptos={cryptos} getCryptos={getCryptos} getHistory={getCryptoHistory} />} />
+            <Route path="/" element={<Outlet />}>
+              <Route index element={<Home cryptos={cryptos} getCryptos={getCryptos} />} />
+              <Route path=":coinId" element={<Detail />} />
               <Route
                   path="*"
                   element={<Navigate to="/" />}  //No match route
