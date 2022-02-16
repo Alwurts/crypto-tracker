@@ -4,12 +4,10 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+import Link from '@mui/material/Link';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import { CardActionArea } from '@mui/material';
-import Nomics from "nomics";
  
 // ...
  
@@ -19,8 +17,8 @@ export default function Home(props) {
  
 
   React.useEffect(() => {
-    props.getCryptos()
- 
+    props.getCryptos();
+    props.getHistory();
     
   },[])
 
@@ -28,10 +26,11 @@ export default function Home(props) {
   return (
 
     <Container maxWidth="sm" sx={{ mt: 3, mb: 4 }}>
-      <Typography gutterBottom variant="h1" sx={{ fontSize: '38px', textAlign: 'center', mb: 4 }}>
+      <Typography variant="h1" sx={{ fontSize: '38px', textAlign: 'center', mb: 4 }}>
         CRYPTO TRACKER
       </Typography>
-      {props.cryptos.map((crypto) => (
+      { 
+        props.cryptos.map((crypto) => (
         <Card sx={{ my:2 }} key={crypto.id}>
           <CardActionArea sx={{display: 'flex', justifyContent: 'start'}}>
             <CardMedia
@@ -63,7 +62,9 @@ export default function Home(props) {
         </Card>
 
       ))}
-
+      <Typography  sx={{ fontSize: '20px', textAlign: 'center'}}>
+        <Link href="https://nomics.com" target="_blank">Crypto Market Cap & Pricing Data Provided By Nomics</Link>
+      </Typography>
 
     </Container>
 

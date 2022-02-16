@@ -22,10 +22,25 @@ function App() {
 
   function getCryptos() {
     console.log('Getting cryptos')
-    fetch("https://api.nomics.com/v1/currencies/ticker?key=44cffefdce04124b246c324236bc07fb50b4a74d&interval=1d&convert=USD&per-page=10&page=1")
+    fetch("https://api.nomics.com/v1/currencies/ticker?key=44cffefdce04124b246c324236bc07fb50b4a74d&interval=1d&per-page=10&page=1")
     .then(response => response.json())
     .then((data) => {
       setCryptos(data)
+      console.log(data)
+    })
+    .catch((error) => {
+      setCryptos([]);
+      console.log("Couldnt fetch data")
+    })
+    
+  }
+
+  function getCryptoHistory() {
+    console.log('Getting history')
+    fetch("https://api.nomics.com/v1/exchange-rates/history?key=44cffefdce04124b246c324236bc07fb50b4a74d&currency=AVAX&start=2021-04-14T00%3A00%3A00Z")
+    .then(response => response.json())
+    .then((data) => {
+      
       console.log(data)
     })
     
@@ -38,7 +53,7 @@ function App() {
 
           <Routes>
             <Route path="" element={<Outlet />}>
-              <Route path="/" element={<Home cryptos={cryptos} getCryptos={getCryptos} />} />
+              <Route path="/" element={<Home cryptos={cryptos} getCryptos={getCryptos} getHistory={getCryptoHistory} />} />
               <Route
                   path="*"
                   element={<Navigate to="/" />}  //No match route
