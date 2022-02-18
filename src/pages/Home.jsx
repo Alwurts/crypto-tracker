@@ -37,7 +37,14 @@ export default function Home(props) {
       </Typography>
       { 
         props.cryptos.map((crypto, index) => (
-        <Card sx={{ my:2 }} key={crypto.id}>
+        <Card 
+          sx={{ 
+            my:2,
+            borderRadius: '18px',
+            background: '#ffffff',
+            boxShadow: '7px 7px 15px #d9d9d9,-7px -7px 15px #ffffff',
+         }} 
+          key={crypto.id}>
           <CardActionArea sx={{display: 'flex', justifyContent: 'start'}} onClick={event => { navigateToDetail(crypto.id, index) }}>
             <CardMedia
               component="img"
@@ -48,7 +55,7 @@ export default function Home(props) {
             <CardContent sx={{display: 'flex', width: '100vw'}}>
               <Box>
                 <Typography gutterBottom variant="h2" sx={{fontSize: '25px', fontWeight: 500, mb: 0}}>
-                  
+                  {crypto.name}
                 </Typography>
                 <Typography variant="h3" color="text.secondary" sx={{fontSize: '25px', fontWeight: 500}}>
                   {crypto.id}
