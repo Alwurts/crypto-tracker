@@ -3,19 +3,14 @@ import { Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline'
 
-import getCrypto from './nomics/getCrypto'
-
 import Home from "./pages/Home"
 import Detail from './pages/Detail';
-
-import { red } from '@mui/material/colors';
-
-
 
 
 function App() {
   
-  const [darkState, setDarkState] = React.useState(false); // State for the dark mode
+  const [darkState, setDarkState] = React.useState(true); // State for the dark mode
+  const [loading, setLoading] = React.useState(false); // State for the dark mode
   
   const theme = createTheme({
   palette: {
@@ -40,7 +35,10 @@ function App() {
       percent: {
         success: '#32CC86',
         warning: '#FB3044',
-    },
+      },
+      loading: {
+        primary: '#122069',
+      },
     }),
       
     ...(!darkState && {
@@ -63,7 +61,10 @@ function App() {
       percent: {
         success: '#32CC86',
         warning: '#d6293a',
-    },
+      },
+      loading: {
+        primary: '#d6b027',
+      },
     }),
       
   },
@@ -86,8 +87,8 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Outlet />}>
-              <Route index element={<Home darkState={darkState} setDarkState={setDarkState} />} />
-              <Route path=":coinId" element={<Detail darkState={darkState} setDarkState={setDarkState} />} />
+              <Route index element={<Home darkState={darkState} setDarkState={setDarkState} loading={loading} setLoading={setLoading} />} />
+              <Route path=":coinId" element={<Detail darkState={darkState} setDarkState={setDarkState} loading={loading} setLoading={setLoading} />} />
               <Route
                   path="*"
                   element={<Navigate to="/" />}  //No match route

@@ -8,12 +8,13 @@ import Link from '@mui/material/Link';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
- 
+
 import { useNavigate } from "react-router-dom";
 import DarkSwitch from '../components/darkSwitch';
 import NeuCard from '../components/card';
  
 import getCrypto from '../nomics/getCrypto';
+import NeuLoading from '../components/loading';
 
 export default function Home(props) {
  
@@ -21,7 +22,7 @@ export default function Home(props) {
   const [cryptos, setCryptos] = React.useState([])
   
   React.useEffect(() => {
-    getCrypto(setCryptos); // Pass in the state to update
+    getCrypto(setCryptos, props.setLoading); // Pass in the state to update
   },[])
   
  
@@ -42,9 +43,19 @@ export default function Home(props) {
         </Typography>
         <DarkSwitch sx={{marginRight: 10}} darkState={props.darkState} setDarkState={props.setDarkState}/>
       </Box>
+      {props.loading && 
+        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent:'end',pl:3 , pr: 3, py:1, mb:4}}>
+          <Typography variant="h1" sx={{ fontSize: '22px', textAlign: 'center', fontWeight: 300, mb:5, mt:2 }}>
+            Loading latest crypto values
+          </Typography>
+          <NeuLoading sx={{mb:3}} size="70px" />
+        </Box>
+      
+      }
+      
       
       { 
-        cryptos.map((crypto, index) => (
+        props.loading === false && cryptos.map((crypto, index) => (
         <NeuCard 
           sx={{ 
             my:3,

@@ -1,10 +1,12 @@
-export default function getCrypto(setCrypto, whichCrypto = null) {
+export default function getCrypto(setCrypto, setLoading, whichCrypto = null) {
     //console.log('Getting cryptoss')
+    setLoading(true);
+    var url;
     if (whichCrypto){
-        var url = "https://api.nomics.com/v1/currencies/ticker?key=44cffefdce04124b246c324236bc07fb50b4a74d&interval=1d&per-page=10&page=1&ids=" + whichCrypto
+        url = "https://api.nomics.com/v1/currencies/ticker?key=44cffefdce04124b246c324236bc07fb50b4a74d&interval=1d&per-page=10&page=1&ids=" + whichCrypto
     
     } else {
-        var url = "https://api.nomics.com/v1/currencies/ticker?key=44cffefdce04124b246c324236bc07fb50b4a74d&interval=1d&per-page=20&page=1"
+        url = "https://api.nomics.com/v1/currencies/ticker?key=44cffefdce04124b246c324236bc07fb50b4a74d&interval=1d&per-page=20&page=1"
     }
     fetch(url)
     .then(response => response.json())
@@ -15,14 +17,19 @@ export default function getCrypto(setCrypto, whichCrypto = null) {
             //console.log(data.length)
             //console.log(data[0])
             //data.length == 1 ? data[0] : data
-            setCrypto(data.length == 1 ? data[0] : data);
+            setCrypto(data.length === 1 ? data[0] : data);
+            setLoading(false);
         } else {
             setCrypto(data);
+            setLoading(false);
         }
     })
     .catch((error) => {
         console.log("Couldnt fetch data" + error);
         setCrypto([]);
+
+        // If data fetch fails do something
+        //setLoading(false);
     })
     
 }
