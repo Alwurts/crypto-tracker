@@ -4,7 +4,6 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
 import Link from '@mui/material/Link';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -22,13 +21,10 @@ export default function Home(props) {
   const [cryptos, setCryptos] = React.useState([])
   
   React.useEffect(() => {
-    //props.getCryptos();
     getCrypto(setCryptos); // Pass in the state to update
   },[])
   
-  const handleChange = (event) => {
-    props.setDarkState(event.target.checked);
-  };
+ 
 
   let navigate = useNavigate();
 
@@ -51,7 +47,7 @@ export default function Home(props) {
         cryptos.map((crypto, index) => (
         <NeuCard 
           sx={{ 
-            my:4,
+            my:3,
         }} 
           key={crypto.id}>
           <CardActionArea sx={{display: 'flex', justifyContent: 'start'}} onClick={event => { navigateToDetail(crypto.id, index) }}>
@@ -74,7 +70,7 @@ export default function Home(props) {
                 <Typography gutterBottom variant="h3" color="text.primary"  sx={{fontSize: '22px', fontWeight: 500, mb: 0}}>
                   {'USD$' + parseFloat(crypto.price).toFixed(2)}
                 </Typography>
-                <Typography variant="h3" color="percent.success" sx={{fontSize: '22px', fontWeight: 500}}>
+                <Typography variant="h3" color={(parseFloat(crypto['1d'].price_change_pct)) > 0 ? "percent.success" : "percent.warning"}  sx={{fontSize: '22px', fontWeight: 500}}>
                   {(parseFloat(crypto['1d'].price_change_pct) * 100).toFixed(2) + '%'}
                 </Typography>  
               </Box>

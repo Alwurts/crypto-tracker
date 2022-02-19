@@ -38,8 +38,8 @@ function App() {
         primary: '#fff',
       },
       percent: {
-        success: '#21adf4',
-        warning: '#b80b1c',
+        success: '#32CC86',
+        warning: '#FB3044',
     },
     }),
       
@@ -61,8 +61,8 @@ function App() {
         primary: '#214166',
       },
       percent: {
-        success: '#21ad44',
-        warning: '#b80b1c',
+        success: '#32CC86',
+        warning: '#d6293a',
     },
     }),
       
@@ -78,7 +78,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Outlet />}>
               <Route index element={<Home darkState={darkState} setDarkState={setDarkState} />} />
-              <Route path=":coinId" element={<Detail />} />
+              <Route path=":coinId" element={<Detail darkState={darkState} setDarkState={setDarkState} />} />
               <Route
                   path="*"
                   element={<Navigate to="/" />}  //No match route
