@@ -1,59 +1,74 @@
 import React from 'react';
 import { Routes, Route, Outlet, Navigate } from "react-router-dom";
-
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline'
+
+import getCrypto from './nomics/getCrypto'
 
 import Home from "./pages/Home"
 import Detail from './pages/Detail';
 
 import { red } from '@mui/material/colors';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#000',
-      dark: red[400],
-      light: red[400],
 
-    },
-  
-    mode: 'light',
-    
-  
 
-  },
-});
 
 function App() {
-  const [cryptos, setCryptos] = React.useState([])
-
-
-  function getCryptos() {
-    console.log('Getting cryptos')
-    fetch("https://api.nomics.com/v1/currencies/ticker?key=44cffefdce04124b246c324236bc07fb50b4a74d&interval=1d&per-page=10&page=1")
-    .then(response => response.json())
-    .then((data) => {
-      setCryptos(data)
-      console.log(data)
-    })
-    .catch((error) => {
-      setCryptos([]);
-      console.log("Couldnt fetch data")
-    })
-    
-  }
-
-  function getCryptoHistory() {
-    console.log('Getting history')
-    fetch("https://api.nomics.com/v1/exchange-rates/history?key=44cffefdce04124b246c324236bc07fb50b4a74d&currency=AVAX&start=2021-04-14T00%3A00%3A00Z")
-    .then(response => response.json())
-    .then((data) => {
+  
+  const [darkState, setDarkState] = React.useState(false); // State for the dark mode
+  
+  const theme = createTheme({
+  palette: {
+    ...(darkState && {
+      mode: 'dark',
+      primary: {
+        main: '#2b2b2b',
+      },
+      background: {
+        default: '#2b2b2b',
+      },
+      neuShadow1: {
+        primary: '#242424',
+      },
+      neuShadow2: {
+        primary: '#323232',
+      },
       
-      console.log(data)
-    })
-    
-  }
+      text: {
+        primary: '#fff',
+      },
+      percent: {
+        success: '#21adf4',
+        warning: '#b80b1c',
+    },
+    }),
+      
+    ...(!darkState && {
+      mode: 'light',
+      primary: {
+        main: '#e0e0e0',
+      },
+      background: {
+        default: '#e0e0e0',
+      },
+      neuShadow1: {
+        primary: '#c5c5c5',
+      },
+      neuShadow2: {
+        primary: '#fbfbfb',
+      },
+      text: {
+        primary: '#214166',
+      },
+      percent: {
+        success: '#21ad44',
+        warning: '#b80b1c',
+    },
+    }),
+      
+  },
+  
+});
 
   return (
     <React.Fragment >
@@ -62,7 +77,7 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Outlet />}>
-              <Route index element={<Home cryptos={cryptos} getCryptos={getCryptos} />} />
+              <Route index element={<Home darkState={darkState} setDarkState={setDarkState} />} />
               <Route path=":coinId" element={<Detail />} />
               <Route
                   path="*"
