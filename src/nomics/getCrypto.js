@@ -11,9 +11,9 @@ export default function getCrypto(setCrypto, whichCrypto = null) {
     .then((data) => {
         //console.log(data);
         if (whichCrypto){
-            console.log("Crypto included")
-            console.log(data.length)
-            console.log(data[0])
+            //console.log("Crypto included")
+            //console.log(data.length)
+            //console.log(data[0])
             //data.length == 1 ? data[0] : data
             setCrypto(data.length == 1 ? data[0] : data);
         } else {

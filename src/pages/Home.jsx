@@ -50,14 +50,14 @@ export default function Home(props) {
             my:3,
         }} 
           key={crypto.id}>
-          <CardActionArea sx={{display: 'flex', justifyContent: 'start'}} onClick={event => { navigateToDetail(crypto.id, index) }}>
+          <CardActionArea  sx={{display: 'flex', justifyContent: 'start', color: 'transparent'}} onClick={event => { navigateToDetail(crypto.id, index) }}>
             <CardMedia
               component="img"
               image={crypto.logo_url}
               alt="green iguana"
               sx={{width: '45px', ml: 2}}
             />
-            <CardContent sx={{display: 'flex', width: '100vw'}}>
+            <CardContent sx={{display: 'flex', width: '100vw'}} >
               <Box>
                 <Typography gutterBottom variant="h2" color='text.primary' sx={{fontSize: '22px', fontWeight: 500, mb: 0}}>
                   {crypto.name}
