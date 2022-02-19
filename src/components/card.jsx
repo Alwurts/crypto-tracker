@@ -10,7 +10,7 @@ const CustCard = styled(Card)(({ theme }) => ({
   borderRadius: '30px',
   marginTop: 30,
   background: theme.palette.primary.main,
-  boxShadow: ('11px 11px 14px ' + theme.palette.neuShadow1.primary + ',-11px -11px 14px ' + theme.palette.neuShadow2.primary),
+  boxShadow: ('7px 7px 10px ' + theme.palette.neuShadow1.primary + ',-7px -7px 10px ' + theme.palette.neuShadow2.primary),
   //boxShadow: theme.palette.mode === 'dark' ? '7px 7px 16px #242424, -7px -7px 16px #323232' : '7px 7px 10px #cccccc, -7px -7px 10px #f4f4f4',
   overflow: 'unset', 
   '&:hover': {
