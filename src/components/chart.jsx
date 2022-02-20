@@ -74,7 +74,7 @@ export default function NeuLine(props) {
 
   const options = {
     responsive: true,
-    bezierCurve : true,
+    events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove','touchend'],
     interaction: {
       intersect: false,
       axis: 'x',
