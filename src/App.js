@@ -19,6 +19,9 @@ function App() {
       primary: {
         main: '#2b2b2b',
       },
+      secondary: {
+        main: '#122069',
+      },
       background: {
         default: '#2b2b2b',
       },
@@ -46,6 +49,9 @@ function App() {
       mode: 'light',
       primary: {
         main: '#e0e0e0',
+      },
+      secondary: {
+        main: '#d6b027',
       },
       background: {
         default: '#e0e0e0',

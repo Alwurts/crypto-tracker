@@ -17,13 +17,16 @@ import NeuLoading from '../components/loading';
 import getHistory from '../nomics/getHistory';
 
 import NeuLine from '../components/chart';
+import NeuButtonGroup from '../components/buttonGroup';
 
 
 export default function Detail(props) {
   const [cryptoDetail, setCryptoDetail] = React.useState([])
   const [cryptoHistory, setCryptoHistory] = React.useState([])
-  const [barPrice, setBarPrice] = React.useState([])
-  const [barDate, setBarDate] = React.useState([])
+
+  // This are for whatever is being clicked on the chart canvas
+  const [barPrice, setBarPrice] = React.useState()
+  const [barDate, setBarDate] = React.useState()
   
   React.useEffect(() => {
     // Crypto Info state | Loading state | Crypto ID | Fetch history? | Crypto History State
@@ -72,15 +75,11 @@ export default function Detail(props) {
           </Box>
           
           <Typography variant="h4" color='text.secondary' sx={{ fontSize: '18px', textAlign: 'center', mb: .5, fontWeight: 500  }}>
-            Last price
-          </Typography>
-          
-          <Typography variant="h4" color='text.secondary' sx={{ fontSize: '18px', textAlign: 'center', mb: .5, fontWeight: 500  }}>
-            {barDate}
+            {barDate ? barDate : "Last price"}
           </Typography>
           <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'end'}} >
             <Typography variant="h2" sx={{ fontSize: '38px', textAlign: 'center', fontWeight: 500 }}>
-              {'$' + (barPrice)}
+              {barPrice ? ('$' + (barPrice)) : ('$' + parseFloat(cryptoDetail.price).toFixed(4))}
             </Typography>
             <Typography variant="h5" sx={{ fontSize: '20px', textAlign: 'center', fontWeight: 500, ml:'8px', pb:'4px' }}>
               USD
@@ -104,6 +103,9 @@ export default function Detail(props) {
             cryptoHistory={cryptoHistory}
           />
           
+          <NeuButtonGroup
+            sx={{mt:6}}
+          />
           
         </div>
       

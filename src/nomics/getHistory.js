@@ -6,7 +6,7 @@ export default function getHistory(setHistoryState, setLoadingState, whichCrypto
     var currencyUrl = ("&currency=" + whichCrypto);
 
     var threeYearsAgoFromNow = new Date();
-    threeYearsAgoFromNow.setFullYear(threeYearsAgoFromNow.getFullYear() - 3);
+    threeYearsAgoFromNow.setFullYear(threeYearsAgoFromNow.getFullYear() - 1);
 
     var startDateUrl = ("&start=" + threeYearsAgoFromNow.toISOString());
 
