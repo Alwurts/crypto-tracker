@@ -31,6 +31,7 @@ function App() {
       
       text: {
         primary: '#fff',
+        secondary: '#bbb',
       },
       percent: {
         success: '#32CC86',
@@ -57,6 +58,7 @@ function App() {
       },
       text: {
         primary: '#214166',
+        secondary:'#111',
       },
       percent: {
         success: '#32CC86',

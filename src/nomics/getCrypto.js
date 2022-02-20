@@ -1,6 +1,12 @@
-export default function getCrypto(setCrypto, setLoading, whichCrypto = null) {
+import getHistory from "./getHistory";
+
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
+
+export default function getCrypto(detailState, setLoadingState, whichCrypto = null, doHistory = false, setHistoryState) {
     //console.log('Getting cryptoss')
-    setLoading(true);
+    setLoadingState(true);
     var url;
     if (whichCrypto){
         url = "https://api.nomics.com/v1/currencies/ticker?key=44cffefdce04124b246c324236bc07fb50b4a74d&interval=1d&per-page=10&page=1&ids=" + whichCrypto
@@ -17,19 +23,28 @@ export default function getCrypto(setCrypto, setLoading, whichCrypto = null) {
             //console.log(data.length)
             //console.log(data[0])
             //data.length == 1 ? data[0] : data
-            setCrypto(data.length === 1 ? data[0] : data);
-            setLoading(false);
+            detailState(data.length === 1 ? data[0] : data);
+            if(!doHistory) {setLoadingState(false);} // If we are not going to fetch history, then we are done
         } else {
-            setCrypto(data);
-            setLoading(false);
+            detailState(data);
+            if(!doHistory) {setLoadingState(false);}
         }
+
+        // We have to wait between api calls, other wise a too many request error is raised
+        delay(1000).then(() => {
+            if (doHistory){
+                //console.log("Also getting history")
+                getHistory(setHistoryState, setLoadingState, whichCrypto);
+            }
+        });
+       
     })
     .catch((error) => {
-        console.log("Couldnt fetch data" + error);
-        setCrypto([]);
+        console.log(error);
+        detailState([]);
 
         // If data fetch fails do something
-        //setLoading(false);
+        //setLoadingState(false);
     })
     
 }

@@ -14,23 +14,30 @@ import DarkSwitch from '../components/darkSwitch';
 import getCrypto from '../nomics/getCrypto';
 import NeuIconButton from '../components/button';
 import NeuLoading from '../components/loading';
+import getHistory from '../nomics/getHistory';
+
+import NeuLine from '../components/chart';
+
 
 export default function Detail(props) {
   const [cryptoDetail, setCryptoDetail] = React.useState([])
-
+  const [cryptoHistory, setCryptoHistory] = React.useState([])
+  const [barPrice, setBarPrice] = React.useState([])
+  const [barDate, setBarDate] = React.useState([])
   
   React.useEffect(() => {
-    getCrypto(setCryptoDetail, props.setLoading, params.coinId); 
+    // Crypto Info state | Loading state | Crypto ID | Fetch history? | Crypto History State
+    getCrypto(setCryptoDetail, props.setLoading, params.coinId, true, setCryptoHistory); 
   },[])
 
   let params = useParams();
 
   let navigate = useNavigate();
-
+  
   return (
 
     <Container maxWidth="sm" sx={{ mt: 3, mb: 4 }}>
-      <Box sx={{display: 'flex', alignItems: 'center', justifyContent:'end',pl:3 , pr: 3, py:1, mb:3}}>
+      <Box sx={{display: 'flex', alignItems: 'center', justifyContent:'end',pl:3 , pr: 3, py:1, mb:1}}>
         <NeuIconButton sx={{ marginRight: 'auto'}} onClick={()=> navigate(`/`)}>
           <ArrowBackIosNewIcon />
         </NeuIconButton>
@@ -47,24 +54,56 @@ export default function Detail(props) {
       }
       {props.loading === false && 
         <div>
-          <Typography variant="h1" sx={{ fontSize: '42px', textAlign: 'center', fontWeight: 600  }}>
-            {cryptoDetail.name}
-          </Typography>
-          <Typography variant="h2" sx={{ fontSize: '35px', textAlign: 'center', mb: 3, fontWeight: 500  }}>
-            {cryptoDetail.id}
-          </Typography>
-          <Typography variant="h4" sx={{ fontSize: '22px', textAlign: 'center', mb: .5, fontWeight: 500  }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: '20px'}} >
+            <Box
+              component="img"
+              sx={{
+                height: '30px',
+                width: 'auto',
+                mr: '8px',
+                
+              }}
+              alt="Crypto coin logo."
+              src={cryptoDetail.logo_url}
+            />
+            <Typography variant="h1" sx={{ fontSize: '32px', textAlign: 'center', fontWeight: 600}}>
+              {cryptoDetail.name}
+            </Typography>
+          </Box>
+          
+          <Typography variant="h4" color='text.secondary' sx={{ fontSize: '18px', textAlign: 'center', mb: .5, fontWeight: 500  }}>
             Last price
           </Typography>
-          <Typography variant="h1" sx={{ fontSize: '38px', textAlign: 'center', fontWeight: 600 }}>
-          {'$' + parseFloat(cryptoDetail.price).toFixed(4)}
+          
+          <Typography variant="h4" color='text.secondary' sx={{ fontSize: '18px', textAlign: 'center', mb: .5, fontWeight: 500  }}>
+            {barDate}
           </Typography>
+          <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'end'}} >
+            <Typography variant="h2" sx={{ fontSize: '38px', textAlign: 'center', fontWeight: 500 }}>
+              {'$' + (barPrice)}
+            </Typography>
+            <Typography variant="h5" sx={{ fontSize: '20px', textAlign: 'center', fontWeight: 500, ml:'8px', pb:'4px' }}>
+              USD
+            </Typography>
+          </Box>
           {
             cryptoDetail['1d'] && 
-            <Typography variant="h3" color={(parseFloat(cryptoDetail['1d'].price_change_pct)) > 0 ? "percent.success" : "percent.warning"}  sx={{fontSize: '22px', textAlign: 'center', fontWeight: 500}}>
+            <Typography 
+              variant="h3" 
+              color={(parseFloat(cryptoDetail['1d'].price_change_pct)) > 0 ? "percent.success" : "percent.warning"}  
+              sx={{fontSize: '20px', textAlign: 'center', fontWeight: 500 ,mt: '5px'}}
+            >
               {(parseFloat(cryptoDetail['1d'].price_change_pct) * 100).toFixed(2) + '%'}
             </Typography> 
           }
+         
+
+          <NeuLine
+            setBarPrice={setBarPrice}
+            setBarDate={setBarDate}
+            cryptoHistory={cryptoHistory}
+          />
+          
           
         </div>
       
