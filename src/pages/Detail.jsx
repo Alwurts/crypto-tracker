@@ -98,7 +98,7 @@ export default function Detail(props) {
             </Typography> 
           }
          
-
+          
           <NeuLine
             setBarPrice={setBarPrice}
             setBarDate={setBarDate}

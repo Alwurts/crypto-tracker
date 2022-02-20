@@ -26,31 +26,35 @@ ChartJS.register(
 
 export default function NeuLine(props) {
 
-  var labelPeriod
-  switch (props.timeButtonGroup) {
-    case '1':
-      labelPeriod= props.cryptoHistory[0];
-      break;
-    case '2':
-      labelPeriod= props.cryptoHistory[0].slice(-93,-1);
-      break;
-    case '3':
-      labelPeriod= props.cryptoHistory[0].slice(-31,-1);
-      break;
+  var labelPeriod=[]
+  var dataPeriod=[]
+  // Check if there is already data in the state, if not dont try to access it
+  if (props.cryptoHistory[0]){ 
+    switch (props.timeButtonGroup) {
+      case '1':
+        labelPeriod= props.cryptoHistory[0];
+        break;
+      case '2':
+        labelPeriod= props.cryptoHistory[0].slice(-93,-1);
+        break;
+      case '3':
+        labelPeriod= props.cryptoHistory[0].slice(-31,-1);
+        break;
+    }
+  
+    switch (props.timeButtonGroup) {
+      case '1':
+        dataPeriod= props.cryptoHistory[1];
+        break;
+      case '2':
+        dataPeriod= props.cryptoHistory[1].slice(-93,-1);
+        break;
+      case '3':
+        dataPeriod= props.cryptoHistory[1].slice(-31,-1);
+        break;
+    }
   }
-
-  var dataPeriod
-  switch (props.timeButtonGroup) {
-    case '1':
-      dataPeriod= props.cryptoHistory[1];
-      break;
-    case '2':
-      dataPeriod= props.cryptoHistory[1].slice(-93,-1);
-      break;
-    case '3':
-      dataPeriod= props.cryptoHistory[1].slice(-31,-1);
-      break;
-  }
+  
 
   const data = {
     
