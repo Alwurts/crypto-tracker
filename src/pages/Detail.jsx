@@ -27,7 +27,9 @@ export default function Detail(props) {
   // This are for whatever is being clicked on the chart canvas
   const [barPrice, setBarPrice] = React.useState()
   const [barDate, setBarDate] = React.useState()
-  
+
+  const [timeButtonGroup, setTimeButtonGroup] = React.useState('2')
+
   React.useEffect(() => {
     // Crypto Info state | Loading state | Crypto ID | Fetch history? | Crypto History State
     getCrypto(setCryptoDetail, props.setLoading, params.coinId, true, setCryptoHistory); 
@@ -39,8 +41,8 @@ export default function Detail(props) {
   
   return (
 
-    <Container maxWidth="sm" sx={{ mt: 3, mb: 4 }}>
-      <Box sx={{display: 'flex', alignItems: 'center', justifyContent:'end',pl:3 , pr: 3, py:1, mb:1}}>
+    <Container maxWidth="md" sx={{ mt: 3, mb: 4, px:0 }}>
+      <Box sx={{display: 'flex', alignItems: 'center', justifyContent:'end',px:'40px', py:1, mb:1}}>
         <NeuIconButton sx={{ marginRight: 'auto'}} onClick={()=> navigate(`/`)}>
           <ArrowBackIosNewIcon />
         </NeuIconButton>
@@ -90,7 +92,7 @@ export default function Detail(props) {
             <Typography 
               variant="h3" 
               color={(parseFloat(cryptoDetail['1d'].price_change_pct)) > 0 ? "percent.success" : "percent.warning"}  
-              sx={{fontSize: '20px', textAlign: 'center', fontWeight: 500 ,mt: '5px'}}
+              sx={{fontSize: '20px', textAlign: 'center', fontWeight: 500 ,mt: '5px', mb:'20px'}}
             >
               {(parseFloat(cryptoDetail['1d'].price_change_pct) * 100).toFixed(2) + '%'}
             </Typography> 
@@ -101,21 +103,32 @@ export default function Detail(props) {
             setBarPrice={setBarPrice}
             setBarDate={setBarDate}
             cryptoHistory={cryptoHistory}
+            timeButtonGroup={timeButtonGroup}
           />
+          <Box sx={{px:'30px'}} >
+            <NeuButtonGroup
+              sx={{
+                mt:"25px",
+                
+              }}
+              timeButtonGroup={timeButtonGroup}
+              setTimeButtonGroup={setTimeButtonGroup}
+            />
+          </Box>
           
-          <NeuButtonGroup
-            sx={{mt:6}}
-          />
           
         </div>
       
       }
-      <Typography  sx={{ fontSize: '20px', textAlign: 'center', mt: 3}}>
-        By: <Link href="https://alwurts.com" color="text.primary" target="_blank">Alwurts</Link>
-      </Typography>
-      <Typography  sx={{ fontSize: '17px', textAlign: 'center', mt: 1}}>
-        <Link href="https://nomics.com" color="text.primary" target="_blank">Crypto Market Cap & Pricing Data Provided By Nomics</Link>
-      </Typography>
+      <Box sx={{px:'30px'}} >
+        <Typography  sx={{ fontSize: '20px', textAlign: 'center', mt: 3}}>
+          By: <Link href="https://alwurts.com" color="text.primary" target="_blank">Alwurts</Link>
+        </Typography>
+        <Typography  sx={{ fontSize: '17px', textAlign: 'center', mt: 1}}>
+          <Link href="https://nomics.com" color="text.primary" target="_blank">Crypto Market Cap & Pricing Data Provided By Nomics</Link>
+        </Typography>
+      </Box>
+      
       
     </Container>
 

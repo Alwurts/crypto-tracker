@@ -47,32 +47,31 @@ const CustToggle = styled(ToggleButton)(({ theme }) => ({
 
 export default function NeuButtonGroup(props) {
 
-  const [alignment, setAlignment] = React.useState('left');
-
-  const handleAlignment = (event, newAlignment) => {
-    setAlignment(newAlignment);
+  
+  const handleChangePeriod = (event, newPeriod) => {
+    props.setTimeButtonGroup(newPeriod);
   };
 
   return (
       <CustToggleGroup
-        value={alignment}
+        value={props.timeButtonGroup}
         exclusive
-        onChange={handleAlignment}
-        aria-label="text alignment"
+        onChange={handleChangePeriod}
+        aria-label="Chart time period"
         fullWidth
         sx={[
           // You cannot spread `sx` directly because `SxProps` (typeof sx) can be an array.
           ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
         ]}
       >
-        <CustToggle value="left" aria-label="left aligned" sx={{fontSize:'18px'}} >
+        <CustToggle value="3" aria-label="1 month" sx={{fontSize:'18px'}} >
           1M
         </CustToggle>
-        <CustToggle value="center" aria-label="centered" sx={{fontSize:'18px'}} >
-          1Y
+        <CustToggle value="2" aria-label="3 months" sx={{fontSize:'18px'}} >
+          3M
         </CustToggle>
-        <CustToggle value="right" aria-label="right aligned" sx={{fontSize:'18px'}} >
-          3Y
+        <CustToggle value="1" aria-label="1 year" sx={{fontSize:'18px'}} >
+          1Y
         </CustToggle>
 
       </CustToggleGroup>

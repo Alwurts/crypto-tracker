@@ -36,7 +36,7 @@ export default function Home(props) {
 
   return (
 
-    <Container maxWidth="sm" sx={{ mt: 3, mb: 4}}>
+    <Container maxWidth="md" sx={{ mt: 3, mb: 4}}>
       <Box sx={{display: 'flex', alignItems: 'center', justifyContent:'end',pl:3 , pr: 3, py:1, mb:4}}>
         <Typography variant="h1" sx={{ fontSize: '32px', marginRight: 'auto', mt:.8, fontWeight: 600 }}>
           Crypto Track

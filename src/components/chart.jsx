@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 
 import { Line } from 'react-chartjs-2';
+import { darkScrollbar } from '@mui/material';
 
 ChartJS.register(
   CategoryScale,
@@ -25,12 +26,41 @@ ChartJS.register(
 
 export default function NeuLine(props) {
 
+  var labelPeriod
+  switch (props.timeButtonGroup) {
+    case '1':
+      labelPeriod= props.cryptoHistory[0];
+      break;
+    case '2':
+      labelPeriod= props.cryptoHistory[0].slice(-93,-1);
+      break;
+    case '3':
+      labelPeriod= props.cryptoHistory[0].slice(-31,-1);
+      break;
+  }
+
+  var dataPeriod
+  switch (props.timeButtonGroup) {
+    case '1':
+      dataPeriod= props.cryptoHistory[1];
+      break;
+    case '2':
+      dataPeriod= props.cryptoHistory[1].slice(-93,-1);
+      break;
+    case '3':
+      dataPeriod= props.cryptoHistory[1].slice(-31,-1);
+      break;
+  }
+
   const data = {
-    labels: props.cryptoHistory[0],
+    
+    labels: labelPeriod, // 1 Year
+
+
     datasets: [
       {
         //label: "First dataset",
-        data: props.cryptoHistory[1],
+        data: dataPeriod,
         fill: true,
         backgroundColor: "rgba(75,192,192,0.2)",
         borderColor: "rgba(75,192,192,1)"
