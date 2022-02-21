@@ -104,19 +104,14 @@ export default function NeuLine(props) {
         const activePoint = chart.tooltip._active[0]
         ctx.beginPath();
         ctx.moveTo(activePoint.element.x, chart.chartArea.top);
-        ctx.lineTo(activePoint.element.x, activePoint.element.y);
+        ctx.lineTo(activePoint.element.x, chart.chartArea.bottom);
         ctx.lineWidth = 2;
         ctx.strokeStyle = 'text.primary';
         ctx.stroke();
         ctx.restore();
 
-        ctx.beginPath();
-        ctx.moveTo(activePoint.element.x, activePoint.element.y);
-        ctx.lineTo(activePoint.element.x, chart.chartArea.bottom);
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = 'red';
-        ctx.stroke();
-        ctx.restore();
+    
+
 
       }
       //console.log('line...')
@@ -125,7 +120,7 @@ export default function NeuLine(props) {
   const options = {
     responsive: true,
     aspectRatio: 1.4,
-    events: ['mousemove', 'mouseout', 'touchstart', 'touchmove','touchend'],
+    events: ['mousemove', 'mouseout','mouseup', 'touchstart', 'touchmove','touchend'],
   
     interaction: {
       intersect: false,
