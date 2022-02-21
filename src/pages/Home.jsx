@@ -19,7 +19,7 @@ import NeuLoading from '../components/loading';
 export default function Home(props) {
  
   
-  const [cryptos, setCryptos] = React.useState([])
+  const [cryptos, setCryptos] = React.useState()
   
   React.useEffect(() => {
     getCrypto(setCryptos, props.setLoading); // Pass in the state to update
@@ -52,10 +52,13 @@ export default function Home(props) {
         </Box>
       
       }
-      
-      
+      {(props.loading === false && !cryptos) && 
+        <Typography variant="h1" sx={{ fontSize: '22px', textAlign: 'center', fontWeight: 300, my:"200px" }}>
+          Fetch failed, try again later
+        </Typography>
+      }
       { 
-        props.loading === false && cryptos.map((crypto, index) => (
+        (props.loading === false && cryptos) && cryptos.map((crypto, index) => (
         <NeuCard 
           sx={{ 
             my:3,

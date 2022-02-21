@@ -21,8 +21,8 @@ import NeuButtonGroup from '../components/buttonGroup';
 
 
 export default function Detail(props) {
-  const [cryptoDetail, setCryptoDetail] = React.useState([])
-  const [cryptoHistory, setCryptoHistory] = React.useState([])
+  const [cryptoDetail, setCryptoDetail] = React.useState()
+  const [cryptoHistory, setCryptoHistory] = React.useState()
 
   // This are for whatever is being clicked on the chart canvas
   const [barPrice, setBarPrice] = React.useState()
@@ -57,7 +57,12 @@ export default function Detail(props) {
           <NeuLoading sx={{mb:3}} size="70px" />
         </Box>
       }
-      {props.loading === false && 
+      {(props.loading === false && !cryptoDetail) && 
+        <Typography variant="h1" sx={{ fontSize: '22px', textAlign: 'center', fontWeight: 300, my:"200px" }}>
+          Fetch failed, try again later
+        </Typography>
+      }
+      {(props.loading === false && cryptoDetail) && 
         <div>
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: '20px'}} >
             <Box
@@ -87,34 +92,44 @@ export default function Detail(props) {
               USD
             </Typography>
           </Box>
-          {
-            cryptoDetail['1d'] && 
-            <Typography 
-              variant="h3" 
-              color={(parseFloat(cryptoDetail['1d'].price_change_pct)) > 0 ? "percent.success" : "percent.warning"}  
-              sx={{fontSize: '20px', textAlign: 'center', fontWeight: 500 ,mt: '5px', mb:'20px'}}
-            >
-              {(parseFloat(cryptoDetail['1d'].price_change_pct) * 100).toFixed(2) + '%'}
-            </Typography> 
-          }
-         
+       
+          <Typography 
+            variant="h3" 
+            color={(parseFloat(cryptoDetail['1d'].price_change_pct)) > 0 ? "percent.success" : "percent.warning"}  
+            sx={{fontSize: '20px', textAlign: 'center', fontWeight: 500 ,mt: '5px', mb:'20px'}}
+          >
+            {(parseFloat(cryptoDetail['1d'].price_change_pct) * 100).toFixed(2) + '%'}
+          </Typography> 
           
-          <NeuLine
-            setBarPrice={setBarPrice}
-            setBarDate={setBarDate}
-            cryptoHistory={cryptoHistory}
-            timeButtonGroup={timeButtonGroup}
-          />
-          <Box sx={{px:'30px'}} >
-            <NeuButtonGroup
-              sx={{
-                mt:"25px",
-                
-              }}
-              timeButtonGroup={timeButtonGroup}
-              setTimeButtonGroup={setTimeButtonGroup}
-            />
-          </Box>
+         
+          {
+            cryptoHistory ? 
+            <>
+              <NeuLine
+                setBarPrice={setBarPrice}
+                setBarDate={setBarDate}
+                cryptoHistory={cryptoHistory}
+                timeButtonGroup={timeButtonGroup}
+              />
+              <Box sx={{px:'30px'}} >
+                <NeuButtonGroup
+                  sx={{
+                    mt:"25px",
+                    
+                  }}
+                  timeButtonGroup={timeButtonGroup}
+                  setTimeButtonGroup={setTimeButtonGroup}
+                />
+              </Box>
+            </>
+            
+            :
+            
+            <Typography variant="h4" color='text.secondary' sx={{ fontSize: '18px', textAlign: 'center',my:'100px', fontWeight: 500  }}>
+              No historic data to show
+            </Typography>
+          }
+          
           
           
         </div>

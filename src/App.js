@@ -6,10 +6,28 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Home from "./pages/Home"
 import Detail from './pages/Detail';
 
+function useStickyState(defaultValue, key) {
+  const [value, setValue] = React.useState(() => {
+    const stickyValue = window.localStorage.getItem(key);
+    return stickyValue !== null
+      ? JSON.parse(stickyValue)
+      : defaultValue;
+  });
+
+  React.useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+  return [value, setValue];
+}
 
 function App() {
   
-  const [darkState, setDarkState] = React.useState(true); // State for the dark mode
+  //const [darkState, setDarkState] = React.useState(true); // State for the dark mode
+
+  const [darkState, setDarkState] = useStickyState(true, "darkmode");
+
+
+
   const [loading, setLoading] = React.useState(false); // State for the dark mode
   
   const theme = createTheme({

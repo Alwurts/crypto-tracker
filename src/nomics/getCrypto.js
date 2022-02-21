@@ -41,10 +41,9 @@ export default function getCrypto(detailState, setLoadingState, whichCrypto = nu
     })
     .catch((error) => {
         console.log(error);
-        detailState([]);
 
         // If data fetch fails do something
-        //setLoadingState(false);
+        setLoadingState(false);
     })
     
 }
