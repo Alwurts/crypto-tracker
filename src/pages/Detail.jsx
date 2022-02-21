@@ -86,7 +86,7 @@ export default function Detail(props) {
           </Typography>
           <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'end'}} >
             <Typography variant="h2" sx={{ fontSize: '38px', textAlign: 'center', fontWeight: 500 }}>
-              {barPrice ? ('$' + (barPrice)) : ('$' + parseFloat(cryptoDetail.price).toFixed(4))}
+              {barPrice ? ('$' + (barPrice)) : ('$' + parseFloat(cryptoDetail.price).toFixed(3))}
             </Typography>
             <Typography variant="h5" sx={{ fontSize: '20px', textAlign: 'center', fontWeight: 500, ml:'8px', pb:'4px' }}>
               USD
@@ -108,8 +108,10 @@ export default function Detail(props) {
               <NeuLine
                 setBarPrice={setBarPrice}
                 setBarDate={setBarDate}
+                cryptoDetail={cryptoDetail}
                 cryptoHistory={cryptoHistory}
                 timeButtonGroup={timeButtonGroup}
+
               />
               <Box sx={{px:'30px'}} >
                 <NeuButtonGroup

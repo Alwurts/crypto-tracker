@@ -77,22 +77,28 @@ export default function NeuLine(props) {
   };
 
 
-  /* const myEventCatcher = {
+  const myEventCatcher = {
    
       id: 'myEventCatcher',
-      beforeEvent: chart => {
-        console.log("Mouse out")
+      afterEvent: (chart,e) => {
+        //console.log(e)
+        if(e.event.type=="mouseup" || e.event.type == 'mouseout'){
+          props.setBarPrice()
+          props.setBarDate()
+        }
+        
+        //console.log("Mouse out")
       }
     
 
   }
- */
+
   const tooltipLine = {
-    id: 'tooltipLine',
-    afterDraw: chart => {
-      console.log(chart)
+
+    afterDatasetsDraw: chart => {
+      //console.log(chart)
       if (chart.tooltip._active && chart.tooltip._active.length){
-        console.log('line...')
+        //console.log('line...')
         const ctx = chart.ctx;
         ctx.save();
         const activePoint = chart.tooltip._active[0]
@@ -119,14 +125,8 @@ export default function NeuLine(props) {
   const options = {
     responsive: true,
     aspectRatio: 1.4,
-    events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove','touchend'],
-    onHover: function (evt, item) {
-      //console.log(evt.type)
-      if (evt.type){
-        
-      }
-      
-    },
+    events: ['mousemove', 'mouseout', 'touchstart', 'touchmove','touchend'],
+  
     interaction: {
       intersect: false,
       axis: 'x',
@@ -217,7 +217,7 @@ export default function NeuLine(props) {
       <Line 
         data={data} 
         options={options}
-        plugins={[tooltipLine]}
+        plugins={[tooltipLine, myEventCatcher]}
         sx={[
           // You cannot spread `sx` directly because `SxProps` (typeof sx) can be an array.
           ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
