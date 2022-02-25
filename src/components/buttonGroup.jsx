@@ -67,13 +67,13 @@ export default function NeuButtonGroup(props) {
         ]}
       >
         <CustToggle value="3" aria-label="1 month" sx={{fontSize:'18px'}} >
-          3M
+          1M
         </CustToggle>
         <CustToggle value="2" aria-label="3 month" sx={{fontSize:'18px'}} >
-          1Y
+          3M
         </CustToggle>
         <CustToggle value="1" aria-label="1 year" sx={{fontSize:'18px'}} >
-          3Y
+          1Y
         </CustToggle>
 
       </CustToggleGroup>
