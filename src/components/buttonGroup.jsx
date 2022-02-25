@@ -66,13 +66,13 @@ export default function NeuButtonGroup(props) {
           ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
         ]}
       >
-        <CustToggle value="3" aria-label="3 month" sx={{fontSize:'18px'}} >
+        <CustToggle value="3" aria-label="1 month" sx={{fontSize:'18px'}} >
           3M
         </CustToggle>
-        <CustToggle value="2" aria-label="1 year" sx={{fontSize:'18px'}} >
+        <CustToggle value="2" aria-label="3 month" sx={{fontSize:'18px'}} >
           1Y
         </CustToggle>
-        <CustToggle value="1" aria-label="3 years" sx={{fontSize:'18px'}} >
+        <CustToggle value="1" aria-label="1 year" sx={{fontSize:'18px'}} >
           3Y
         </CustToggle>
 

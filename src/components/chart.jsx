@@ -35,10 +35,10 @@ export default function NeuLine(props) {
         labelPeriod= props.cryptoHistory[0];
         break;
       case '2':
-        labelPeriod= props.cryptoHistory[0].slice(-365,-1);
+        labelPeriod= props.cryptoHistory[0].slice(-93,-1);
         break;
       case '3':
-        labelPeriod= props.cryptoHistory[0].slice(-93,-1);
+        labelPeriod= props.cryptoHistory[0].slice(-31,-1);
         break;
     }
   
@@ -47,10 +47,10 @@ export default function NeuLine(props) {
         dataPeriod= props.cryptoHistory[1];
         break;
       case '2':
-        dataPeriod= props.cryptoHistory[1].slice(-365,-1);
+        dataPeriod= props.cryptoHistory[1].slice(-93,-1);
         break;
       case '3':
-        dataPeriod= props.cryptoHistory[1].slice(-93,-1);
+        dataPeriod= props.cryptoHistory[1].slice(-31,-1);
         break;
     }
   }
@@ -95,9 +95,9 @@ export default function NeuLine(props) {
 
   const tooltipLine = {
 
-    afterDatasetsDraw: chart => {
-      //console.log(chart)
-      if (chart.tooltip._active && chart.tooltip._active.length){
+    afterDraw: (chart) => {
+      console.log(chart)
+      if (chart.tooltip._active && chart.tooltip._active.length > 0){
         //console.log('line...')
         const ctx = chart.ctx;
         ctx.save();
@@ -171,15 +171,25 @@ export default function NeuLine(props) {
       },
       tooltip: {
         enabled: false,
-        
+        events: ['mousemove', 'mouseout','mouseup', 'touchstart', 'touchmove','touchend'],
         external: function(context) {
-      
+          console.log('---------')
+          console.log(context)
           // Hide if no tooltip
           const tooltipModel = context.tooltip;
 
-          if (tooltipModel.opacity === 0) {
-            //console.log("Not showing")
-         }
+          if (tooltipModel.opacity !== 0) {
+          }
+          /* const ctx = context.chart.ctx;
+          ctx.save();
+          const activePoint = context.chart.tooltip._active[0]
+          ctx.beginPath();
+          ctx.moveTo(activePoint.element.x, context.chart.chartArea.top);
+          ctx.lineTo(activePoint.element.x, context.chart.chartArea.bottom);
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = 'red';
+          ctx.stroke();
+          ctx.restore(); */
 
           function getBody(bodyItem) {
               return bodyItem.lines;
@@ -212,7 +222,7 @@ export default function NeuLine(props) {
       <Line 
         data={data} 
         options={options}
-        plugins={[tooltipLine, myEventCatcher]}
+        plugins={[tooltipLine,myEventCatcher]}
         sx={[
           // You cannot spread `sx` directly because `SxProps` (typeof sx) can be an array.
           ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
