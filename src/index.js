@@ -4,7 +4,9 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
+import ReactGA from 'react-ga4';
 
+const TRACKING_ID = "G-2RWBMZXK45"; // YOUR_OWN_TRACKING_ID
 
 ReactDOM.render(
   <BrowserRouter>
@@ -13,6 +15,10 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root')
 );
+
+
+
+ReactGA.initialize(TRACKING_ID);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
